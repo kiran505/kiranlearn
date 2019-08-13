@@ -6,9 +6,25 @@ import { Component } from '@angular/core';
   styleUrls: ['./app.component.scss']
 })
 export class AppComponent {
-  post ={
-  
-  title : "fav",
-  isicon: true
+  title = 'direct';
+  courses=[1,2,3,4,5];
+ 
+viewMode='anything';
+crs;
+loadcrs(){
+  this.crs=[
+  {id: 1, name: 'course1'},
+  {id: 2, name: 'course2'},
+  {id: 3, name: 'course3'},
+];
+}
+onAdd() {
+  this.crs.push({id: 4,name: 'course4'});
+
+}
+onRemove(course){
+  let index=this.crs.indexOf(course);
+  this.crs.splice(index,1);
+
 }
 }

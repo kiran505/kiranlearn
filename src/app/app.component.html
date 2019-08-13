@@ -1,2 +1,50 @@
-<!--The content below is only a placeholder and can be replaced.-->
-<app-icon [isicon]="post.isicon"></app-icon>
+<div *ngIf="courses.length>0; then courselist else nocourses"></div>
+<ng-template #courselist>
+  list of courses
+</ng-template>
+<ng-template #nocourses>
+  no courses are avilable
+</ng-template>
+<ul class="nav nav-pills">
+  <li [class.active]="viewMode=='map'"><a (click)="viewMode='map'">map view</a></li>
+  <li [class.active]="viewMode=='list'"><a (click)="viewMode='list'">list view</a></li>
+</ul>
+
+<div [ngSwitch]="viewMode">
+  <div *ngSwitchCase="'map'">map view content</div>
+  <div *ngSwitchCase="'list'">list view content</div>
+  <div *ngSwitchDefault>otherwise</div>
+</div>
+<br>
+<button (click)="loadcrs()">loadcrs</button>
+<ul>
+  <li *ngFor="let course of crs;">
+    {{course.name}}
+  </li>
+</ul>
+<ul>
+  <li *ngFor="let course of crs; index as i">
+    {{ i }}-{{ course.name }}
+  </li>
+</ul>
+<button (click)="onAdd(course)">Add</button>
+<ul>
+  <li *ngFor="let course of crs">
+    {{ course.name }}
+    <button (click)="onRemove(course)">Remove</button>
+  
+  </li>
+</ul>
+
+<input type="text" [appInputFormat]="'UpperCase'">
+<br>
+<br>
+<zippy title="shipping title">
+shipping details
+</zippy>
+<zippy title="price details">
+  price details of shipping
+</zippy>
+<contact-form></contact-form>
+
+<new-course-form></new-course-form>

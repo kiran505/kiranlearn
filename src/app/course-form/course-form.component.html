@@ -1,0 +1,31 @@
+<form #f="ngForm" (submit)="submit(f.value)">
+    <div class="form-group">
+        <label for="name">course Name</label>
+            <input required minlength='3' ngModel name="name" #name="ngModel" type="text" id="name" class="form-control">
+        <div *ngIf="name.touched && !name.valid" class="alert alert-danger">
+            <div *ngIf="name.errors.required">name field is required</div>
+            <div *ngIf="name.errors.minlength">name field requires minimum 3 characters</div>
+        </div>
+    </div>
+    <div class="form-group">
+        <label for="category">category</label>
+        <select required ngModel name="category"  id="category" class="form-control">
+            <option></option>
+            <option *ngFor="let cate of category" [value]="cate.id">
+                {{cate.name}}
+            </option>
+        </select>
+        <div *ngIf="category.touched && category.invalid" class="alert alert-danger">
+            category field is required
+        </div>
+    </div>
+    <div class="checkbox">
+        <label for="competative course">
+            <input ngModel name="is this competative course" type="checkbox" id="competative courses">
+             competative courses?
+        </label>
+    </div>
+    <p>{{ f.value | json }}</p>
+    <button class="btn btn-primary" [disabled]="f.invalid">create</button>
+    
+</form>
