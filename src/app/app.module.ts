@@ -11,6 +11,9 @@ import { CourseFormComponent } from './course-form/course-form.component';
 import { SignupFormComponent } from './signup-form/signup-form.component';
 import { NewCourseFormComponent } from './new-course-form/new-course-form.component';
 import { ChangePasswordComponent } from './change-password/change-password.component';
+import { PostComponent } from './post/post.component';
+import { HttpClientModule } from '@angular/common/http';
+import { PostService } from './post.service';
 @NgModule({
   declarations: [
     AppComponent,
@@ -20,15 +23,21 @@ import { ChangePasswordComponent } from './change-password/change-password.compo
     CourseFormComponent,
     SignupFormComponent,
     NewCourseFormComponent,
-    ChangePasswordComponent
+    ChangePasswordComponent,
+    PostComponent
   ],
   imports: [
     BrowserModule,
     AppRoutingModule,
     FormsModule,
-    ReactiveFormsModule
+    ReactiveFormsModule,
+    HttpClientModule
+
   ],
-  providers: [],
+  providers: [
+    PostService
+
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
