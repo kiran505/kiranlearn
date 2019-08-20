@@ -2,6 +2,9 @@ import { Component, OnInit } from '@angular/core';
 
 import { PostService } from '../post.service';
 import { post } from 'selenium-webdriver/http';
+import { AppError } from '../app-error';
+import { NotFoundError } from './not-found-error';
+
 
 
 @Component({
@@ -17,38 +20,61 @@ export class PostComponent implements OnInit {
   }
    createPost(input: HTMLInputElement){
      let post={ title: input.value };
+     this.posts.splice(0,0,post);
+
      input.value='';
-     this.service.createPost(post)
-     .subscribe(response=>{
-       //post[ 'id' ]=response;
-       this.posts.splice(0,0,post);
-       console.log(response);
+
+     this.service.create(post)
+     .subscribe(newPost=>{
+       //post[ 'id' ]=newPost.id;
+       
+       console.log(newPost);
+     },(error:AppError)=>{
+       this.posts.splice(0,1);
+
+       if(error instanceof NotFoundError){
+       //this.form.setErrors(error)
+       }
+       else throw error
+       
+
+       
+      
+ 
+     
       });
     }
     updatePost(post){
-      this.service.updatePost(post)
+      this.service.update(post)
       
-      .subscribe(response=>{
-        post=response;
-        console.log(response);
-      })
+      .subscribe( updatedPost=>{
+        post= updatedPost;
+        console.log( updatedPost);
+      });
 
     }
     deletePost(post){
-     this.service.deletePost(post.id)
+      let index=this.posts.indexOf(post);
+      this.posts.splice(index,1);
 
+     this.service.delete(345)
+     
       .subscribe(reponse=>{
-        let index=this.posts.indexOf(post);
-        this.posts.splice(index,1)
+        
+      },
+      (error: AppError)=>{
+        if(error instanceof NotFoundError)
+        alert('this post is deleted');
+        
+
+        else throw error;
+       
 
       })
     }
     ngOnInit() {
-      this.service.getPosts()
-      .subscribe(response => {
-        this.posts=response;
-        console.log(response);
-      });
+      this.service.getAll()
+      .subscribe(posts => this.posts=posts);
 
     }
 

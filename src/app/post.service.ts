@@ -1,24 +1,21 @@
 import { Injectable } from '@angular/core';
-import{ HttpClient } from '@angular/common/http'
+import{ HttpClient, } from '@angular/common/http'
+import { Observable, } from 'rxjs';
+import { AppError } from './app-error';
+import { DataService } from './data-service';
+
+import { catchError, filter, map, shareReplay } from 'rxjs/operators'
+import { NotFoundError } from './post/not-found-error';
 
 @Injectable({
   providedIn: 'root'
 })
-export class PostService {
-  private url='https://jsonplaceholder.typicode.com/posts'
+export class PostService extends DataService{
+  
 
 
-  constructor(private http: HttpClient) { }
-  getPosts(){
-   return this.http.get(this.url);
+  constructor(http: HttpClient) { 
+    super('https://jsonplaceholder.typicode.com/posts',http)
   }
-  createPost(post){
-    return this.http.post(this.url, post)
-  }
-  updatePost(post){
-    return this.http.patch(this.url + '/' + post.id,({ isRead: true }))
-  }
-  deletePost(id){
-    return  this.http.delete(this.url+ '/'+id)
-  }
+  
 }
