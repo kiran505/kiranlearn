@@ -15,6 +15,12 @@ import { PostComponent } from './post/post.component';
 import { HttpClientModule } from '@angular/common/http';
 import { PostService } from './post.service';
 import { AppErrorHandler } from './app-error-handler';
+import { GitFollowComponent } from './git-follow/git-follow.component';
+import { GitFollowService } from './git-follow.service';
+import{ RouterModule} from '@angular/router';
+import { from } from 'rxjs';
+import { HomeComponentComponent } from './home-component/home-component.component';
+import { NavbarComponent } from './navbar/navbar.component';
 @NgModule({
   declarations: [
     AppComponent,
@@ -25,18 +31,38 @@ import { AppErrorHandler } from './app-error-handler';
     SignupFormComponent,
     NewCourseFormComponent,
     ChangePasswordComponent,
-    PostComponent
+    PostComponent,
+    GitFollowComponent,
+    HomeComponentComponent,
+    NavbarComponent
+   
   ],
   imports: [
     BrowserModule,
     AppRoutingModule,
     FormsModule,
     ReactiveFormsModule,
-    HttpClientModule
+    HttpClientModule,
+    RouterModule.forRoot([{
+      path:'',component: HomeComponentComponent
+    },
+    {
+      path:'change-password',component: ChangePasswordComponent
+    },
+    {
+      path:'posts',component: PostComponent
+    },
+    {
+      path:'contactMethod',component:ContactFormComponent
+
+    }
+  ])
+  
 
   ],
   providers: [
     PostService,
+    GitFollowService,
     { provide:ErrorHandler,useClass:AppErrorHandler }
 
   ],

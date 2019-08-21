@@ -27,10 +27,9 @@ export class DataService {
     .pipe(catchError(this.handleError));
   }
   delete(id){
-      return Observable.throw(new AppError());
-   // return  this.http.delete(this.url+ '/'+id)
-   // .pipe(map(Response=>Response))
-    //.pipe(catchError(this.handleError));
+    return  this.http.delete(this.url+ '/'+id)
+    .pipe(map(Response=>Response))
+    .pipe(catchError(this.handleError));
   }
   private handleError(error: Response){
     if(error.status===400)

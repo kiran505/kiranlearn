@@ -15,7 +15,7 @@ import { NotFoundError } from './not-found-error';
 export class PostComponent implements OnInit {
  posts;
 
-  constructor(private service: PostService ) {
+  constructor(private service: PostService  ) {
    
   }
    createPost(input: HTMLInputElement){
@@ -63,6 +63,7 @@ export class PostComponent implements OnInit {
         
       },
       (error: AppError)=>{
+        this.posts.splice(index,0,post);
         if(error instanceof NotFoundError)
         alert('this post is deleted');
         
